@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Connect TikTok</title><link rel="stylesheet" href="style.css"></head>
+<body><main>
+<p class="brand">Eat for Nothing</p>
+<h1>Connect your TikTok account</h1>
+<p>Eat for Nothing turns our daily budget recipes into short videos. After you connect your TikTok account, each new recipe video is sent to your TikTok inbox as a draft. Nothing is posted publicly: you review the draft, edit it if you like, and publish it yourself in the TikTok app.</p>
+<div class="card">
+  <p><strong>What we ask for</strong></p>
+  <ul>
+    <li><strong>user.info.basic</strong>: to show which account is connected.</li>
+    <li><strong>video.upload</strong>: to send recipe videos to your TikTok inbox as drafts.</li>
+  </ul>
+  <p class="muted">You can disconnect at any time in TikTok under Settings and privacy › Security › Manage app permissions.</p>
+</div>
+<p><a id="connect" href="#"><button type="button">Continue with TikTok</button></a></p>
+<footer class="muted"><a href="privacy.html">Privacy Policy</a> · <a href="terms.html">Terms of Service</a></footer>
+<script>
+  // Client Key ist öffentlich (kein Geheimnis). Mit ?key=... lässt sich ein anderer Key testen.
+  const CLIENT_KEY = new URLSearchParams(location.search).get("key") || "sbaw45qtz06ogmp697";
+  const q = new URLSearchParams({
+    client_key: CLIENT_KEY,
+    scope: "user.info.basic,video.upload",
+    response_type: "code",
+    redirect_uri: "https://s0egler.github.io/eatfornothing/callback.html",
+    state: "efn"
+  });
+  document.getElementById("connect").href = "https://www.tiktok.com/v2/auth/authorize/?" + q;
+</script>
+</main></body></html>
