@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Sign-in complete</title><link rel="stylesheet" href="style.css"></head>
+<body><main>
+<p class="brand">Eat for Nothing</p>
+<h1 id="title">Sign-in complete</h1>
+<p id="hint" class="muted">Copy this code. It is valid for a few minutes only.</p>
+<div class="card"><code id="code">–</code></div>
+<button id="copy" type="button">Copy code</button>
+<p id="copied" class="muted" hidden>Copied.</p>
+<script>
+  const p = new URLSearchParams(location.search);
+  const code = p.get("code"), err = p.get("error");
+  const el = document.getElementById("code");
+  if (code) { el.textContent = code; }
+  else {
+    document.getElementById("title").textContent = "Sign-in failed";
+    document.getElementById("hint").textContent = err ? ("Error: " + err + " " + (p.get("error_description") || "")) : "No code found in the address.";
+    document.getElementById("copy").hidden = true;
+  }
+  document.getElementById("copy").addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(code); document.getElementById("copied").hidden = false; } catch (e) {}
+  });
+</script>
+</main></body></html>
